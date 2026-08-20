@@ -83,7 +83,7 @@ open class UncivGame(val isConsoleMode: Boolean = false) : Game(), PlatformSpeci
 
     val translations = Translations()
 
-    private val screenStack = ArrayDeque<BaseScreen>()
+    private val screenNavigator = ScreenNavigator(::applyScreen)
 
     override fun create() {
         isInitialized = false // this could be on reload, therefore we need to keep setting this to false
@@ -261,14 +261,17 @@ open class UncivGame(val isConsoleMode: Boolean = false) : Game(), PlatformSpeci
 
     override fun getScreen(): BaseScreen? = super.getScreen() as? BaseScreen
 
-    private fun setScreen(newScreen: BaseScreen) {
-        debug("Setting new screen: %s, screenStack: %s", newScreen, screenStack)
-        Gdx.input.inputProcessor = newScreen.stage
-        super.setScreen(newScreen) // This can set the screen to the policy picker or tech picker screen, so the input processor must be set before
-        if (newScreen is WorldScreen) {
-            newScreen.shouldUpdate = true
-        }
-        Gdx.graphics.requestRendering()
+    private fun applyScreen(newScreen: BaseScreen) {
+    debug("Setting new screen: %s", newScreen)
+
+    Gdx.input.inputProcessor = newScreen.stage
+    super.setScreen(newScreen)
+
+    if (newScreen is WorldScreen) {
+        newScreen.shouldUpdate = true
+    }
+
+    Gdx.graphics.requestRendering()
     }
 
     /** Removes & [disposes][BaseScreen.dispose] all currently active screens in the [screenStack] and sets the given screen as the only screen. */
