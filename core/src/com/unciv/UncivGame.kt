@@ -23,6 +23,7 @@ import com.unciv.ui.components.fonts.Fonts
 import com.unciv.ui.crashhandling.CrashScreen
 import com.unciv.ui.crashhandling.wrapCrashHandlingUnit
 import com.unciv.ui.images.ImageGetter
+import com.unciv.ui.navigation.ScreenNavigator
 import com.unciv.ui.popups.ConfirmPopup
 import com.unciv.ui.popups.Popup
 import com.unciv.ui.screens.GameStartScreen
@@ -40,7 +41,6 @@ import yairm210.purity.annotations.Readonly
 import java.io.PrintWriter
 import java.lang.management.ManagementFactory
 import java.util.*
-import kotlin.collections.ArrayDeque
 import kotlin.collections.asSequence
 import kotlin.collections.count
 import kotlin.collections.filter
